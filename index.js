@@ -3,7 +3,7 @@ require("dotenv").config();
 const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./utils/db");
-const templateRouter = require("./routes/template");
+const studentRouter = require("./routes/student");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
@@ -11,7 +11,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cors());
 
-app.use("/api/templates", templateRouter);
+app.use("/api/students", studentRouter);
 app.use(errorHandler);
 app.use((req, res, next) => {
 	res.status(404).json({ success: false, error: "Sorry, can't find that." });

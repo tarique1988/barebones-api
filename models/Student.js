@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TemplateSchema = new mongoose.Schema({
+const StudentSchema = new mongoose.Schema({
 	someField: {
 		type: String,
 		required: [true, "some field is required!"],
@@ -10,4 +10,4 @@ const TemplateSchema = new mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model("Template", TemplateSchema);
+module.exports = mongoose.model("Student", StudentSchema);
