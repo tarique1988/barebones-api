@@ -15,7 +15,7 @@ The tasks that must be accomplished in order to call this API complete are:
   - By All students
   - By Students of a class
   - By Month
-  - More features will be added as requested during the development cycle.
+- More features will be added as requested during the development cycle.
 
 _The fields marked with \* are mandatory input fields._
 
