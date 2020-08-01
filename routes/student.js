@@ -15,6 +15,10 @@ studentRouter
 	.put(UpdateStudent)
 	.delete(DeleteStudent);
 
-studentRouter.route("/uid/:uid").get(GetStudent);
+studentRouter
+	.route("/uid/:uid")
+	.get(GetStudent)
+	.put(UpdateStudent)
+	.delete(DeleteStudent);
 
 module.exports = studentRouter;

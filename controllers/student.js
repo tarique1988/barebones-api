@@ -58,43 +58,56 @@ exports.GetStudent = asyncHandler(async (req, res, next) => {
 	res.status(200).json({ success: true, data: student });
 });
 
-// // description      Get a student by UID
-// // route            GET /api/students/uid/:uid
-// // access           Public/Private
-// exports.GetStudentByUID = asyncHandler(async (req, res, next) => {
-// 	const student = await Student.findOne({ uid: req.params.uid });
-// 	if (!student) {
-// 		return next(
-// 			new ErrorResponse(`Student with uid: ${req.params.uid} not found.`, 404)
-// 		);
-// 	}
-// 	res.status(200).json({ success: true, data: student });
-// });
-
 // description      Update a student
 // route            PUT /api/students/:id
+// route            PUT /api/students/uid/:id
 // access           Public/Private
 exports.UpdateStudent = asyncHandler(async (req, res, next) => {
-	const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
-		new: true,
-	});
-	if (!student) {
-		return next(
-			new ErrorResponse(`Student with id: ${req.params.id} not found`, 404)
+	let student;
+	if (!req.params.uid) {
+		student = await Student.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+		});
+		if (!student) {
+			return next(
+				new ErrorResponse(`Student with id ${req.params.id} not found.`, 404)
+			);
+		}
+	} else {
+		student = await Student.findOneAndUpdate(
+			{ uid: req.params.uid },
+			req.body,
+			{ new: true }
 		);
+		if (!student) {
+			return next(
+				new ErrorResponse(`Student with uid: ${req.params.uid} not found.`, 404)
+			);
+		}
 	}
-	res.status(200).json({ success: true, data: [student] });
+	res.status(200).json({ success: true, data: student });
 });
 
 // description      Delete a student
 // route            DELETE /api/students/:id
+// route            DELETE /api/students/uid/:uid
 // access           Public/Private
 exports.DeleteStudent = asyncHandler(async (req, res, next) => {
-	const student = await Student.findByIdAndDelete(req.params.id);
-	if (!student) {
-		return next(
-			new ErrorResponse(`Student with id: ${req.params.id} not found!`)
-		);
+	let student;
+	if (!req.params.uid) {
+		student = await Student.findByIdAndRemove(req.params.id);
+		if (!student) {
+			return next(
+				new ErrorResponse(`Student with id ${req.params.id} not found.`, 404)
+			);
+		}
+	} else {
+		student = await Student.findOneAndRemove({ uid: req.params.uid });
+		if (!student) {
+			return next(
+				new ErrorResponse(`Student with uid: ${req.params.uid} not found.`, 404)
+			);
+		}
 	}
 	res.status(200).json({ success: true, data: student });
 });
