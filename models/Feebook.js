@@ -1,70 +1,28 @@
 const mongoose = require("mongoose");
 
-const getFeeEntries = () => {
-	const year = new Date().getFullYear();
-	return {
-		january: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		february: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		march: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		april: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		may: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		june: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		july: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		august: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		september: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		october: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		november: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-		december: {
-			year,
-			isPaid: false,
-			paidOn: undefined,
-		},
-	};
-};
+const feeSchema = new mongoose.Schema({
+	month: {
+		type: String,
+		enum: [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+		],
+	},
+	date: {
+		type: Date,
+		default: Date.now,
+	},
+});
 
 const feebookSchema = new mongoose.Schema(
 	{
@@ -78,8 +36,7 @@ const feebookSchema = new mongoose.Schema(
 			required: true,
 		},
 		feeEntries: {
-			type: Object,
-			default: getFeeEntries,
+			type: [feeSchema],
 		},
 	},
 	{ versionKey: false }

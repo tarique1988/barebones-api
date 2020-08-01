@@ -7,9 +7,12 @@ const {
 	DeleteStudent,
 } = require("../controllers/student");
 
-const { GetFeesbookByUID } = require("../controllers/fees");
+const { GetFeeBookByUID, AddFeePaymentsByUID } = require("../controllers/fees");
 
-studentRouter.route("/feesbooks/:uid").get(GetFeesbookByUID);
+studentRouter
+	.route("/feebooks/:uid")
+	.get(GetFeeBookByUID)
+	.put(AddFeePaymentsByUID);
 
 studentRouter.route("/").get(GetStudents).post(AddStudent);
 

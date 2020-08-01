@@ -1,8 +1,12 @@
 const express = require("express");
-const feesRouter = express.Router({ mergeParams: true });
-const { GetFeesbookByUID, GetAllFeebooks } = require("../controllers/fees");
+const feeBookRouter = express.Router({ mergeParams: true });
+const {
+	GetFeeBookByUID,
+	GetAllFeebooks,
+	AddFeePaymentsByUID,
+} = require("../controllers/fees");
 
-feesRouter.route("/").get(GetAllFeebooks);
-feesRouter.route("/:uid").get(GetFeesbookByUID);
+feeBookRouter.route("/").get(GetAllFeebooks);
+feeBookRouter.route("/:uid").get(GetFeeBookByUID).put(AddFeePaymentsByUID);
 
-module.exports = feesRouter;
+module.exports = feeBookRouter;
