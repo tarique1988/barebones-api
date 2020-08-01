@@ -1,7 +1,9 @@
 const Student = require("../models/Student");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Counter = require("../models/Counter");
+const FeeBook = require("../models/Feebook");
 const ErrorResponse = require("../utils/errorResponse");
+const Feebook = require("../models/Feebook");
 
 // description      Get all students
 // route            GET /api/students
@@ -31,7 +33,15 @@ exports.AddStudent = asyncHandler(async (req, res, next) => {
 	}
 	req.body.uid = studentCounter.sequenceValue;
 	let student = await Student.create(req.body);
-	res.status(200).json({ success: true, data: student });
+	const feeBook = await FeeBook.create({
+		student,
+		uid: student.uid,
+	});
+	const { feeEntries, uid } = feeBook;
+	res.status(200).json({
+		success: true,
+		data: { student, feeBook: { feeEntries, uid } },
+	});
 });
 
 // description      Get a student
