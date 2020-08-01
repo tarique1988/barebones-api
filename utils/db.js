@@ -8,7 +8,12 @@ const host = process.env.HOST;
 const ConnectDB = () => {
 	mongoose.connect(
 		`mongodb+srv://${username}:${password}@${host}/${database}?retryWrites=true&w=majority`,
-		{ useUnifiedTopology: true, useNewUrlParser: true },
+		{
+			useUnifiedTopology: true,
+			useNewUrlParser: true,
+			useCreateIndex: true,
+			useFindAndModify: false,
+		},
 		(err) => {
 			if (err) {
 				console.log(err);

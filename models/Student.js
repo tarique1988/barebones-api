@@ -1,12 +1,33 @@
 const mongoose = require("mongoose");
 
 const StudentSchema = new mongoose.Schema({
-	someField: {
+	firstName: {
 		type: String,
-		required: [true, "some field is required!"],
+		required: [true, "First name is required!"],
 	},
-	someOtherField: {
+	middleName: {
 		type: String,
+	},
+	lastName: {
+		type: String,
+		required: [true, "Last name is required!"],
+	},
+	createdAt: {
+		type: Date,
+		default: () => {
+			Date.now() + 330 * 60 * 1000;
+		},
+	},
+	lastModifiedAt: {
+		type: Date,
+	},
+	dateOfBirth: {
+		type: Date,
+	},
+	uid: {
+		type: Number,
+		required: true,
+		unique: true,
 	},
 });
 
